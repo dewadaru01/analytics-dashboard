@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { DollarSign, Users, TrendingUp, Activity } from 'lucide-react';
+import { DollarSign, BarChart2, TrendingUp, RefreshCw } from 'lucide-react';
 import { generateData, TIME_RANGES } from './utils/dataGenerator';
 import { useTheme } from './hooks/useTheme';
 import { useMetrics } from './hooks/useMetrics';
@@ -29,9 +29,9 @@ const App = () => {
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className={`${theme.text} text-3xl font-bold mb-2`}>
-              Analytics Dashboard
+              Pasar Keuangan Indonesia
             </h1>
-            <p className={theme.subtext}>Real-time performance metrics and insights</p>
+            <p className={theme.subtext}>Live monitoring: Emas Antam & IHSG</p>
           </div>
           <ThemeToggle isDark={isDark} onToggle={toggleTheme} theme={theme} />
         </div>
@@ -48,33 +48,34 @@ const App = () => {
         {/* Metrics Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <MetricCard
-            title="Total Revenue"
-            value={metrics.revenue}
-            change="+12.5%"
+            title="Harga Emas ( /gr )"
+            value={metrics.goldPrice}
+            change="+1.2%"
             icon={DollarSign}
-            prefix="$"
+            prefix="Rp "
             theme={theme}
           />
           <MetricCard
-            title="Total Users"
-            value={metrics.users}
-            change="+8.2%"
-            icon={Users}
+            title="IHSG (Composite)"
+            value={metrics.ihsg}
+            change="-0.5%"
+            icon={BarChart2}
             theme={theme}
           />
           <MetricCard
-            title="Conversion Rate"
-            value={metrics.conversion}
-            change="+2.4%"
+            title="USD to IDR"
+            value={metrics.usdIdr}
+            change="+0.1%"
             icon={TrendingUp}
-            suffix="%"
+            prefix="Rp "
             theme={theme}
           />
           <MetricCard
-            title="Active Now"
-            value={metrics.activeUsers}
-            change="+15.3%"
-            icon={Activity}
+            title="Harga Buyback"
+            value={metrics.goldBuyback}
+            change="+0.8%"
+            icon={RefreshCw}
+            prefix="Rp "
             theme={theme}
           />
         </div>

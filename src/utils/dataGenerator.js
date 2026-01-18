@@ -1,24 +1,30 @@
-// Generates realistic time-series data with patterns
+// Generates realistic financial trend data
 export const generateData = (days) => {
   const data = [];
   const now = Date.now();
   const dayMs = 24 * 60 * 60 * 1000;
   
+  // Base values for trends
+  let currentGold = 1542000;
+  let currentIHSG = 7328;
+  
   for (let i = days - 1; i >= 0; i--) {
     const date = new Date(now - i * dayMs);
-    const dayOfWeek = date.getDay();
-    const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
     
-    // Realistic patterns: lower on weekends, with some randomness
-    const baseRevenue = isWeekend ? 15000 : 25000;
-    const baseUsers = isWeekend ? 800 : 1400;
+    // Create realistic daily movements
+    const goldChange = (Math.random() - 0.45) * 8000; // Slight upward trend
+    const ihsgChange = (Math.random() - 0.5) * 45;
     
+    currentGold += goldChange;
+    currentIHSG += ihsgChange;
+
     data.push({
-      date: date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
-      revenue: Math.floor(baseRevenue + (Math.random() - 0.5) * 8000),
-      users: Math.floor(baseUsers + (Math.random() - 0.5) * 400),
-      conversion: parseFloat((2.5 + (Math.random() - 0.5) * 1.5).toFixed(2)),
-      activeUsers: Math.floor((baseUsers * 0.6) + (Math.random() - 0.5) * 200)
+      date: date.toLocaleDateString('id-ID', { month: 'short', day: 'numeric' }),
+      // Mapping internal keys to financial data:
+      revenue: Math.floor(currentGold), // Maps to Gold Price
+      users: Math.floor(currentIHSG),   // Maps to IHSG
+      conversion: Math.floor(15800 + (Math.random() - 0.5) * 200), // Maps to USD/IDR
+      activeUsers: Math.floor(currentGold * 0.92) // Maps to Buyback
     });
   }
   return data;
